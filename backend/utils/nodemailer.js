@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 const mailOption = (email, otp) => ({
   from: {
     name: "StudyNass",
-    address: "venturevilla.in@gmail.com",
+    address: process.env.MAILER_USER,
   },
   to: email,
 
