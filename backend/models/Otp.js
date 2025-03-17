@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 const Schema=mongoose.Schema
 const ObjectId=mongoose.Schema.ObjectId
+import { sendMail } from "../utils/nodemailer.js";
 
 const OtpSchema=new Schema({
     email:{
@@ -20,7 +21,13 @@ const OtpSchema=new Schema({
 })
 
 
+// before saving the doc do this 
+
+OtpSchema.pre('save',async (next) => {
+    await sendMail(this.email,this.otp)
+    next()
+})
+
 
 export const OtpModel=mongoose.model('OTP',OtpSchema)
 
-// no samaj  aya 
