@@ -1,6 +1,6 @@
 import LoginAuthenication from "../validators/login-auth.js"
 
-export const LoginMd=async (req,res,next) => {
+export const ValidateLogin=async (req,res,next) => {
     try{
         const {success,error}=await LoginAuthenication.safeParseAsync(req.body)
         if(!success){

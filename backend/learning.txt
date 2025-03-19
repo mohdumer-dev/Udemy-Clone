@@ -1,0 +1,27 @@
+*******************
+**** Express *****
+******************
+
+res.cookies(name,value,{})
+res.header(name,value) || req.header('Authorization').replace("Bearer ","")
+
+
+
+
+
+
+
+
+
+
+
+*******************
+**** MongoDb *****
+******************
+
+createdAT:{
+    type:Date
+    default:Date.now
+    expires:5 * 60 
+} TTL
+.sort(-1).limit(1)

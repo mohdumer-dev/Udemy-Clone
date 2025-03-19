@@ -14,6 +14,8 @@ import User from "../routes/User.js";
 
 const JWT_USER = "3403284903hjfhfuwefhwuiehbjksdflhifhwe8934";
 
+
+
 export const Signup = async (req, res) => {
   try {
     const {
