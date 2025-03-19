@@ -5,11 +5,11 @@ import { sendMail } from "../utils/nodemailer.js";
 const OtpSchema=new Schema({
     email:{
         type:String,
-        require:true
+        required:true
     },
     otp:{
         type:String,
-        require:true
+        required:true
     },
     createdAt:{
         type:Date,

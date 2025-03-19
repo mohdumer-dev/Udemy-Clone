@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const ProfileSchema = new Schema({
-  gender: {
-    type: String,
-  },
   dateofbirth: {
     type: String,
   },

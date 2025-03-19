@@ -5,36 +5,32 @@ const ObjectId = mongoose.Schema.ObjectId;
 const UserSchema = new Schema({
   firstname: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
   lastname: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
   password: {
     type: String,
-    require: true,
-  },
-  confirmPassword: {
-    type: String,
-    require: true,
+    required: true,
   },
   accountType: {
     type: String,
     enum: ["Student", "Instructor", "Admin"],
-    require: true,
+    required: true,
   },
-  additionalDetails: { type: ObjectId, ref: "Profile", require: true },
-  courses: [{ type: ObjectId, refF: "Course" }],
-  image: { type: String, require: true },
-  courseProgress: [{ type: ObjectId, ref: "Course Progress" }],//
+  additionalDetails: { type: ObjectId, ref: "Profile", required: true },
+  courses: [{ type: ObjectId, ref: "Course" }],
+  image: { type: String, required: true },
+  courseProgress: [{ type: ObjectId, ref: "Course Progress" }], //Problem
 });
 
 export const UserModel=mongoose.model('User',UserSchema)
