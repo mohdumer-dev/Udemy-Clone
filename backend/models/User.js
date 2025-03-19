@@ -22,6 +22,10 @@ const UserSchema = new Schema({
     type: String,
     require: true,
   },
+  confirmPassword: {
+    type: String,
+    require: true,
+  },
   accountType: {
     type: String,
     enum: ["Student", "Instructor", "Admin"],

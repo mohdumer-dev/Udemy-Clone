@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 const Schema=mongoose.Schema
-const ObjectId=mongoose.Schema.ObjectId
 import { sendMail } from "../utils/nodemailer.js";
 
 const OtpSchema=new Schema({
@@ -14,7 +13,7 @@ const OtpSchema=new Schema({
     },
     createdAt:{
         type:Date,
-        default:Date.now(),
+        default:Date.now,
         expires:5*60
     }
 
@@ -23,7 +22,7 @@ const OtpSchema=new Schema({
 
 // before saving the doc do this 
 
-OtpSchema.pre('save',async (next) => {
+OtpSchema.pre('save',async function(next) {
     await sendMail(this.email,this.otp)
     next()
 })
