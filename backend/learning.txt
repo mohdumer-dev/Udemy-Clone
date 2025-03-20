@@ -5,6 +5,8 @@
 res.cookies(name,value,{})
 res.header(name,value) || req.header('Authorization').replace("Bearer ","")
 
+// To get random value 
+===> Use crypto
 
 
 

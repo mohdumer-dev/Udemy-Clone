@@ -27,11 +27,12 @@ const UserSchema = new Schema({
     enum: ["Student", "Instructor", "Admin"],
     required: true,
   },
+  token: { type: String },
+  expiresToken: { type: Date },
   additionalDetails: { type: ObjectId, ref: "Profile", required: true },
   courses: [{ type: ObjectId, ref: "Course" }],
   image: { type: String, required: true },
   courseProgress: [{ type: ObjectId, ref: "Course Progress" }], //Problem
 });
 
-export const UserModel=mongoose.model('User',UserSchema)
-
+export const UserModel = mongoose.model("User", UserSchema);

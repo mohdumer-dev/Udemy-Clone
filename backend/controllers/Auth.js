@@ -14,8 +14,6 @@ import User from "../routes/User.js";
 
 const JWT_USER = "3403284903hjfhfuwefhwuiehbjksdflhifhwe8934";
 
-
-
 export const Signup = async (req, res) => {
   try {
     const {
@@ -26,7 +24,7 @@ export const Signup = async (req, res) => {
       confirmPassword,
       accountType,
       phone_number,
-      //   otp
+      otp,
     } = req.body;
 
     if (
@@ -35,7 +33,8 @@ export const Signup = async (req, res) => {
       !lastname ||
       !password ||
       !confirmPassword ||
-      !accountType
+      !accountType ||
+      !otp
     ) {
       return res
         .status(403)
@@ -60,6 +59,11 @@ export const Signup = async (req, res) => {
     const Otp_Data = await OtpModel.findOne({ email })
       .sort({ createdAt: -1 })
       .limit(1);
+    console.log(Otp_Data);
+    // check  the otp from db  and the data written in body
+    if (!Otp_Data.otp === otp) {
+      return res.status(400).json({ success: false, msg: "Otp  is not valid" });
+    }
 
     //hased the pasword
     const hashedPassword = await bcrypt.hash(confirmPassword, 6);
@@ -82,7 +86,9 @@ export const Signup = async (req, res) => {
       additionalDetails: Profile._id,
       image: `https://ui-avatars.com/api/?name=${firstname}+${lastname}&background=random`,
     });
-    res.status(200).json({ User, msg: "User created Succesfully" });
+    res
+      .status(200)
+      .json({ success: true, User, msg: "User created Succesfully" });
   } catch (err) {
     res.status(502).json({ msg: "Server Down while Signup" });
   }
@@ -141,6 +147,7 @@ export const SendOtp = async (req, res) => {
     const UserExist = await UserModel.findOne({
       email,
     });
+    console.log(UserExist);
     // user first time signup
     if (!UserExist) {
       const OTP = otpGenerator.generate(4, {
@@ -149,10 +156,12 @@ export const SendOtp = async (req, res) => {
         lowerCaseAlphabets: false,
       });
       await OtpModel.create({
-        email: UserExist.email,
+        email: email,
         otp: OTP,
       });
-      res.status(200).json({ success: true, msg: "Otp send to the mail" });
+      res
+        .status(200)
+        .json({ success: true, msg: "Otp send to the mail", otp: OTP });
     } else {
       // user already signup
       res.status(404).json({ success: false, msg: "User Already Registered" });
@@ -185,13 +194,13 @@ export const ChangePassword = async (req, res) => {
       previous_Pass,
       UserDetails.password
     );
-    
+
     if (HashingPassword) {
-        // creating new hashed Password to store in db 
+      // creating new hashed Password to store in db
       const HashedPassword = await bcrypt.hash(newPassword, 6);
       UserDetails.password = HashedPassword;
       await UserDetails.save();
-      //  showing the result 
+      //  showing the result
       res.status(200).json({ msg: "Password Changed" });
     } else {
       res.status(400).json({ msg: "Password Incorrect" });
@@ -203,6 +212,8 @@ export const ChangePassword = async (req, res) => {
 
 export const Route = async (req, res) => {
   const User_email = req.email;
-const User=await UserModel.findOne({email:User_email}).populate("additionalDetails")
-res.json({User})
+  const User = await UserModel.findOne({ email: User_email }).populate(
+    "additionalDetails"
+  );
+  res.json({ User });
 };
