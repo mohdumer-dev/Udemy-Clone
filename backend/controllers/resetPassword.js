@@ -5,10 +5,9 @@ import { UserModel } from "../models/User.js";
 import { sendMail } from "../utils/nodemailer.js";
 import bcrypt from "bcrypt";
 
+
+
 export const ResetToken = async (req, res) => {
-  // token generate along with expiry in db
-  // send email of link to reset password
-  // make res
 
   try {
     // email
@@ -41,6 +40,7 @@ export const ResetToken = async (req, res) => {
 
     // make url with token
     const url = `http://localhost/api/v1/resetPassword/${token}`;
+    // frontend UI
 
     // send token through email
     sendMail(
@@ -58,6 +58,7 @@ export const ResetToken = async (req, res) => {
       .json({ succes: false, msg: "Server Problem while Resetting Token" });
   }
 };
+
 
 export const ResetPassword = async (req, res) => {
 
@@ -87,7 +88,7 @@ export const ResetPassword = async (req, res) => {
     }
     // validate the expiry as we have store the expiry of Date + 5 min
     //  if the expirestoken time is greater than current time , it meant token has been expired
-    else if (UserDetails.expiresToken > Date.now()) {
+    else if (UserDetails.expiresToken < Date.now()) {
       return res
         .status(400)
         .json({ success: false, msg: " Token has been expired  " });
@@ -110,7 +111,7 @@ export const ResetPassword = async (req, res) => {
     UserDetails.password = hashedpassword;
     UserDetails.token=null
     UserDetails.expiresToken=null
-    // store the new Datagit 
+    // store the new Data
     await UserDetails.save();
     // send the repsonse
     res.status(200).json({ success: true, msg: " Password has been changed" });
