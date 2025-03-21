@@ -34,8 +34,10 @@ $or operator for the search bar result
 
 
 
-****************
+*********************
 ****** Cloudinary*****
-****************
+**********************
 
 Image Upload (options,temp_file)
+Options -->> File
+cloudinary.config 

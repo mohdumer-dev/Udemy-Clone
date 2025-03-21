@@ -11,5 +11,4 @@ export const UploadImage= async (file,folder,quality,height)=>{
     }
 
     return await cloudinary.uploader.upload(file.tempFilePath,options)
-
 }

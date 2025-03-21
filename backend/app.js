@@ -27,3 +27,7 @@ app.listen(4000,()=>{
 // Database
 import {ConnectDb} from './config/db.js'
 ConnectDb()
+
+//  Cloudinary
+import { ConnectToCloudinary } from './config/cloudinary.js'
+ConnectToCloudinary()

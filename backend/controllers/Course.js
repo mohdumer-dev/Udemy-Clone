@@ -8,8 +8,8 @@ import { UploadImage } from "../utils/ImageUploader.js";
 export const createCourse = async (req, res) => {
   try {
     // get the data
-    const { title, description, price, whatYouLearn, thumbnail, tag } =
-      req.body;
+    const { title, description, price, whatYouLearn, tag } = req.body;
+    const thumbnail = req.files.thumbnailImage;
 
     // validation
     if (
@@ -46,7 +46,7 @@ export const createCourse = async (req, res) => {
       description,
       price,
       whatYouLearn,
-      thumbnail,
+      thumbnail: imageUrl.secure_url,
       instructor: instrcutorId,
     });
     // add course id to the instructor course array
@@ -71,6 +71,23 @@ export const createCourse = async (req, res) => {
     res.status(500).json({
       success: false,
       msg: "Server Down while Creating the Course",
+    });
+  }
+};
+
+// getAll Course
+
+export const GetAllCourse = async (req, res) => {
+  try {
+    const AllCourse = await CourseModel.find(
+      {},
+      { title: true, description: true, thumbnail: true, price: true }
+    );
+    res.status(200).json({Courses:AllCourse})
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      msg: "Server Down while Displaying all  Courses",
     });
   }
 };
