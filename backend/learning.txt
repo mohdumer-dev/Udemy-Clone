@@ -27,3 +27,15 @@ createdAT:{
     expires:5 * 60 
 } TTL
 .sort(-1).limit(1)
+
+const AllTag=await TagModel.find({},{name:true,description:true})
+
+$or operator for the search bar result 
+
+
+
+****************
+****** Cloudinary*****
+****************
+
+Image Upload (options,temp_file)

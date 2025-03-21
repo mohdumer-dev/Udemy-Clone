@@ -8,8 +8,14 @@ app.use(cookieParser())
 
 
 //  Routes
+
+//user//
 import User from './routes/User.js'
 app.use('/api/v1',User)
+
+// instrcutor//
+import Instrcutor from './routes/Instrcutor.js'
+app.use('/api/v1',Instrcutor)
 
 
 // Port
