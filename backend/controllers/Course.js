@@ -4,18 +4,16 @@ import { CourseModel } from "../models/Course.js";
 import { TagModel } from "../models/Tag.js";
 import { UserModel } from "../models/User.js";
 import { UploadImage } from "../utils/ImageUploader.js";
-<<<<<<< HEAD
-=======
+
+
 import { ImageValidation } from "../validators/Imagvalidation.js";
->>>>>>> 33b5c81 (Added Files)
+
 
 export const createCourse = async (req, res) => {
   try {
     // get the data
-<<<<<<< HEAD
-=======
 
->>>>>>> 33b5c81 (Added Files)
+
     const { title, description, price, whatYouLearn, tag } = req.body;
     const thumbnail = req.files.thumbnailImage;
 
@@ -101,11 +99,10 @@ export const GetAllCourse = async (req, res) => {
       {},
       { title: true, description: true, thumbnail: true, price: true }
     );
-<<<<<<< HEAD
+
     res.status(200).json({Courses:AllCourse})
-=======
+
     res.status(200).json({ Courses: AllCourse });
->>>>>>> 33b5c81 (Added Files)
   } catch (err) {
     res.status(500).json({
       success: false,
