@@ -37,7 +37,7 @@ export const createCourse = async (req, res) => {
     // imagevalidation
     const FileType = thumbnail.name.split(".")[1];
 
-    // Call
+    // Call the function
     const { success, msg } = ImageValidation(FileType);
     if (!success) {
       return res.status(400).json({success:false, msg });
