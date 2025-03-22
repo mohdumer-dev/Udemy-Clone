@@ -4,10 +4,18 @@ import { CourseModel } from "../models/Course.js";
 import { TagModel } from "../models/Tag.js";
 import { UserModel } from "../models/User.js";
 import { UploadImage } from "../utils/ImageUploader.js";
+<<<<<<< HEAD
+=======
+import { ImageValidation } from "../validators/Imagvalidation.js";
+>>>>>>> 33b5c81 (Added Files)
 
 export const createCourse = async (req, res) => {
   try {
     // get the data
+<<<<<<< HEAD
+=======
+
+>>>>>>> 33b5c81 (Added Files)
     const { title, description, price, whatYouLearn, tag } = req.body;
     const thumbnail = req.files.thumbnailImage;
 
@@ -23,6 +31,16 @@ export const createCourse = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, msg: "All fields are required" });
+    }
+
+
+    // imagevalidation
+    const FileType = thumbnail.name.split(".")[1];
+
+    // Call
+    const { success, msg } = ImageValidation(FileType);
+    if (!success) {
+      return res.status(400).json({success:false, msg });
     }
 
     // get the tag model
@@ -83,7 +101,11 @@ export const GetAllCourse = async (req, res) => {
       {},
       { title: true, description: true, thumbnail: true, price: true }
     );
+<<<<<<< HEAD
     res.status(200).json({Courses:AllCourse})
+=======
+    res.status(200).json({ Courses: AllCourse });
+>>>>>>> 33b5c81 (Added Files)
   } catch (err) {
     res.status(500).json({
       success: false,
