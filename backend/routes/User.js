@@ -12,8 +12,9 @@ import { ValidateLogin } from "../middleware/login-auth-md.js";
 import { Authentication, IsStudent } from "../middleware/Auth.js";
 import { ResetToken, ResetPassword } from "../controllers/resetPassword.js";
 
-//  Admin Tag
-import { createTag } from "../controllers/Tag.js";
+//  Admin Category
+import { createCategory } from "../controllers/Category.js";
+
 
 // Unprotected Route
 
@@ -27,8 +28,8 @@ User.post("/resetPassword", ResetPassword);
 User.get("/", Authentication, IsStudent, Route);
 User.post("/changePassword", Authentication, ChangePassword);
 
-// Tag Admin
-User.post("/tag",createTag );
+// Category Admin
+User.post("/Category",createCategory );
 
 
 export default User;

@@ -11,7 +11,7 @@ const CourseSchema = new Schema({
   price: { type: Number, required: true },
   thumbnail: { type: String },
   courseContent: [{ ref: "Section", type: ObjectId }],
-  tag: { type: ObjectId, ref: "Tags" },
+  Category: { type: ObjectId, ref: "Categorys" },
   studentEnrolled: [{ type: ObjectId, ref: "User",  }],
 });
 

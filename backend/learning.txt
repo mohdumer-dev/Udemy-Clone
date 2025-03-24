@@ -28,10 +28,11 @@ createdAT:{
 } TTL
 .sort(-1).limit(1)
 
-const AllTag=await TagModel.find({},{name:true,description:true})
+const AllCategory=await CategoryModel.find({},{name:true,description:true})
 
 $or operator for the search bar result 
 
+updateMany // will update in list of documnet
 
 
 *********************
@@ -40,4 +41,7 @@ $or operator for the search bar result
 
 Image Upload (options,temp_file)
 Options -->> File
+options{folder,quality,size,resoucetype:video}
 cloudinary.config 
+cloudinary.uploader.upload (file.temp_file,options)
+// temp_file

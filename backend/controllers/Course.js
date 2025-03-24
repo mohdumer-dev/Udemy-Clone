@@ -1,20 +1,17 @@
 // create a course
 
 import { CourseModel } from "../models/Course.js";
-import { TagModel } from "../models/Tag.js";
+import { CategoryModel } from "../models/Category.js";
 import { UserModel } from "../models/User.js";
 import { UploadImage } from "../utils/ImageUploader.js";
 
-
 import { ImageValidation } from "../validators/Imagvalidation.js";
-
 
 export const createCourse = async (req, res) => {
   try {
     // get the data
 
-
-    const { title, description, price, whatYouLearn, tag } = req.body;
+    const { title, description, price, whatYouLearn, Category } = req.body;
     const thumbnail = req.files.thumbnailImage;
 
     // validation
@@ -24,29 +21,30 @@ export const createCourse = async (req, res) => {
       !price ||
       !whatYouLearn ||
       !thumbnail ||
-      !tag
+      !Category
     ) {
       return res
         .status(400)
         .json({ success: false, msg: "All fields are required" });
     }
 
-
     // imagevalidation
     const FileType = thumbnail.name.split(".")[1];
 
-    // Call the function
+    // Call the ImageValidation
     const { success, msg } = ImageValidation(FileType);
     if (!success) {
-      return res.status(400).json({success:false, msg });
+      return res.status(400).json({ success: false, msg });
     }
 
-    // get the tag model
-    const GetTag = await TagModel.findOne({ name: tag });
+    // get the Category model
+    const GetCategory = await CategoryModel.findOne({ name: Category });
 
-    // check the tag
-    if (!GetTag) {
-      return res.status(400).json({ success: false, msg: "Tag  not found" });
+    // check the Category
+    if (!GetCategory) {
+      return res
+        .status(400)
+        .json({ success: false, msg: "Category  not found" });
     }
 
     // upload image to cloudinary and get the url
@@ -70,13 +68,13 @@ export const createCourse = async (req, res) => {
       { _id: instrcutorId },
       { $push: { courses: CreateCourse._id } }
     );
-    // add course id to the tag document
-    const TagData = await TagModel.findOneAndUpdate(
-      { name: tag },
+    // add course id to the Category document
+    const CategoryData = await CategoryModel.findOneAndUpdate(
+      { name: Category },
       { $push: { courseId: CreateCourse._id } },
       { upsert: true }
     );
-    CreateCourse.tag = TagData._id;
+    CreateCourse.Category = CategoryData._id;
     await CreateCourse.save();
 
     // response
@@ -98,11 +96,13 @@ export const GetAllCourse = async (req, res) => {
     const AllCourse = await CourseModel.find(
       {},
       { title: true, description: true, thumbnail: true, price: true }
-    );
-
-    res.status(200).json({Courses:AllCourse})
+    ).populate({
+      path: "courseContent",
+      populate: { path: "subSection" },
+    }).exec()
 
     res.status(200).json({ Courses: AllCourse });
+
   } catch (err) {
     res.status(500).json({
       success: false,

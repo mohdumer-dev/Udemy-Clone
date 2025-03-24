@@ -7,11 +7,13 @@ const ProfileSchema = new Schema({
   },
   gender: {
     type: String,
+    enum: ["Male", "Female", "Other"],
   },
   contactNumber: {
     type: String,
     trim: true,
   },
+  about: { type: String },
 });
 
-export  const ProfileModel=mongoose.model('Profile',ProfileSchema)
+export const ProfileModel = mongoose.model("Profile", ProfileSchema);

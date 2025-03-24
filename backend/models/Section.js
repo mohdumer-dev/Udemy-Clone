@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const SectionSchema = new Schema({
-  sectionName: { type: String },
+  name: { type: String },
   subSection: [
     {
       ref: "SubSection",
       type: ObjectId,
-      required:true
+      // required:true
     },
   ],
 });
