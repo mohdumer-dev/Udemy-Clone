@@ -7,6 +7,7 @@ res.header(name,value) || req.header('Authorization').replace("Bearer ","")
 
 // To get random value 
 ===> Use crypto
+===> hmac hash (hash-protocol,value)
 
 
 

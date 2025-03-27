@@ -36,9 +36,10 @@ export const createCourse = async (req, res) => {
     if (!success) {
       return res.status(400).json({ success: false, msg });
     }
-
+ 
     // get the Category model
     const GetCategory = await CategoryModel.findOne({ name: Category });
+    console.log(GetCategory)
 
     // check the Category
     if (!GetCategory) {

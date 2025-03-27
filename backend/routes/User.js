@@ -12,6 +12,9 @@ import { ValidateLogin } from "../middleware/login-auth-md.js";
 import { Authentication, IsStudent } from "../middleware/Auth.js";
 import { ResetToken, ResetPassword } from "../controllers/resetPassword.js";
 
+// Course
+import { CapturePayment } from "../controllers/Payment.js";
+
 //  Admin Category
 import { createCategory } from "../controllers/Category.js";
 
@@ -30,6 +33,9 @@ User.post("/changePassword", Authentication, ChangePassword);
 
 // Category Admin
 User.post("/Category",createCategory );
+
+// buy course
+User.post('/buy',Authentication,CapturePayment)
 
 
 export default User;
